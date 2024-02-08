@@ -1,15 +1,19 @@
 const { getBooks, addBook, deleteBook } = require("../services/bookServices");
+const users = require('../data/users.json');
 
-const loginRouteHandler = (req, res, next) => {
-    const { username, password } = req.body;
-    const user = users.find(u => u.username === username && u.password === password);
 
-    if (!user) {
-        return res.status(401).json({ error: 'Invalid username or password' });
+const authHandler = {
+    login: (req, res, next) => {
+        const { username, password } = req.body;
+        const user = users.find(u => u.username === username && u.password === password);
+
+        if (!user) {
+            return res.status(401).json({ error: 'Invalid username or password' });
+        }
+
+        const token = creat(user)
+        res.status(200).json({message: 'Login successful', token });
     }
-
-    const token = jwt.sign({ username: user.username, userType: user.userType }, secretKey);
-    res.json({ token });
 }
 
 const booksRouteHandler = {
@@ -24,7 +28,7 @@ const booksRouteHandler = {
         }
     },
 
-    addbook: async (req, res, next) => {
+    addBook: async (req, res, next) => {
         try {
             const userType = req.user.userType;
             if (userType !== 'admin') {
@@ -36,6 +40,7 @@ const booksRouteHandler = {
             console.log(error)
             res.status(400).json({ error: `${error}` })
         }
+        next()
     },
 
     deleteBook: async (req, res, next) => {
@@ -54,6 +59,6 @@ const booksRouteHandler = {
 }
 
 module.exports = {
-    loginRouteHandler,
+    authHandler,
     booksRouteHandler
 }
