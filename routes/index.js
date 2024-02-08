@@ -1,8 +1,9 @@
 const express = require('express');
-const { loginHandler, booksRouteHandler } = require('../handlers');
+const { authenticateToken } = require('../middleware')
+const { authHandler, booksRouteHandler } = require('../handlers');
 const router = express.Router();
 
-router.post('/login', loginHandler);
+router.post('/auth/login', authHandler.login);
 
 router.get('/books/home', authenticateToken, booksRouteHandler.home);
 
