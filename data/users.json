@@ -1,0 +1,33 @@
+[
+    {
+      "username": "john_doe",
+      "password": "password123",
+      "userType": "regular"
+    },
+    {
+      "username": "jane_smith",
+      "password": "secret456",
+      "userType": "admin"
+    },
+    {
+      "username": "alex_wilson",
+      "password": "password789",
+      "userType": "regular"
+    },
+    {
+      "username": "emily_jones",
+      "password": "secretABC",
+      "userType": "regular"
+    },
+    {
+      "username": "michael_smith",
+      "password": "passwordXYZ",
+      "userType": "regular"
+    },
+    {
+      "username": "susan_walker",
+      "password": "secret123",
+      "userType": "regular"
+    }
+  ]
+  
