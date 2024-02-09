@@ -16,6 +16,7 @@ const getBooks = async (userType) => {
     let books = []
     if (userType === 'admin') {
         books = books.concat(await readCSVFile('regularUser.csv'));
+        
         books = books.concat((await readCSVFile('adminUser.csv')).slice(1));
     } else {
         books = await readCSVFile('regularUser.csv');
@@ -25,7 +26,7 @@ const getBooks = async (userType) => {
 }
 
 const addBook = async ({ name, author, year }) => {
-    if (typeof name !== 'string' || typeof author !== 'string' || isNaN(year) || !Number.isInteger(Number(year))) {
+    if (typeof name !== 'string' || typeof author !== 'string' || isNaN(year) || !Number.isInteger(Number(year)) || year <=0 ) {
         throw new Error('Invalid parameters');
     }
 
@@ -36,8 +37,9 @@ const deleteBook = async ({name}) => {
     if (typeof name !== 'string') {
         throw new Error('Invalid parameters');
     }
-
+    console.log(name)
     const books = await readCSVFile('regularUser.csv');
+    console.log(books)
     const updatedBooks = books.filter(book => book.split(',')[0].toLowerCase() !== name.toLowerCase());
     await fs.writeFile(dataPath + 'regularUser.csv', updatedBooks.join('\n'));
 }

@@ -16,11 +16,23 @@ const authHandler = {
     }
 }
 
+function transformBooks(booksArray) {
+    return booksArray.map(book => {
+        let bookInfo = book.split(',')
+        return {
+            name: bookInfo[0],
+            author: bookInfo[1],
+            year: bookInfo[2]
+        }
+    })
+}
+
 const booksRouteHandler = {
     home: async (req, res, next) => {
         try {
             const userType = req.user.userType;
             let books = await getBooks(userType)
+            books = transformBooks(books.slice(1))
             res.status(200).json({ books })
         } catch (error) {
             console.log(error)
