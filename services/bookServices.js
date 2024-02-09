@@ -4,7 +4,6 @@ const fs = require('fs').promises;
 
 async function readCSVFile(filename) {
     try {
-        console.log(dataPath)
         const data = await fs.readFile(dataPath + filename, 'utf8');
         const lines = data.split('\n').map(line => line.trim());
         return lines;
@@ -14,9 +13,10 @@ async function readCSVFile(filename) {
 }
 
 const getBooks = async (userType) => {
+    let books = []
     if (userType === 'admin') {
         books = books.concat(await readCSVFile('regularUser.csv'));
-        books = books.concat(await readCSVFile('adminUser.csv'));
+        books = books.concat((await readCSVFile('adminUser.csv')).slice(1));
     } else {
         books = await readCSVFile('regularUser.csv');
     }
@@ -29,17 +29,17 @@ const addBook = async ({ name, author, year }) => {
         throw new Error('Invalid parameters');
     }
 
-    fs.appendFile('regularUser.csv', `\n${name},${author},${year}`);
+    fs.appendFile(dataPath + 'regularUser.csv', `\n${name},${author},${year}`);
 }
 
-const deleteBook = async({name}) => {
+const deleteBook = async ({name}) => {
     if (typeof name !== 'string') {
         throw new Error('Invalid parameters');
     }
 
-    const books = readCSVFile('regularUser.csv');
-    const updatedBooks = books.filter(book => book.toLowerCase() !== name.toLowerCase());
-    await fs.writeFile('regularUser.csv', updatedBooks.join('\n'));
+    const books = await readCSVFile('regularUser.csv');
+    const updatedBooks = books.filter(book => book.split(',')[0].toLowerCase() !== name.toLowerCase());
+    await fs.writeFile(dataPath + 'regularUser.csv', updatedBooks.join('\n'));
 }
 
 module.exports = {

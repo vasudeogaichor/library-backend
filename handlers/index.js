@@ -2,7 +2,6 @@ const { getBooks, addBook, deleteBook } = require("../services/bookServices");
 const users = require('../data/users.json');
 const { createToken } = require("../middleware");
 
-
 const authHandler = {
     login: (req, res, next) => {
         const { username, password } = req.body;
