@@ -10,10 +10,10 @@ const authHandler = {
 
         if (!user) {
             return res.status(401).json({ error: 'Invalid username or password' });
+        } else {
+            const token = createToken(user)
+            res.status(200).json({message: 'Login successful', token });
         }
-
-        const token = createToken(user)
-        res.status(200).json({message: 'Login successful', token });
     }
 }
 
@@ -34,9 +34,10 @@ const booksRouteHandler = {
             const userType = req.user.userType;
             if (userType !== 'admin') {
                 res.status(403).json({ error: 'Forbidden' });
+            } else {
+                await addBook(req.body);
+                res.status(200).json({ message: 'Book added successfully' })
             }
-            await addBook(req.body);
-            res.status(200).json({ message: 'Book added successfully' })
         } catch (error) {
             console.log(error)
             res.status(400).json({ error: `${error}` })
