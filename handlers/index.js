@@ -41,7 +41,6 @@ const booksRouteHandler = {
             console.log(error)
             res.status(400).json({ error: `${error}` })
         }
-        next()
     },
 
     deleteBook: async (req, res, next) => {
