@@ -37,9 +37,7 @@ const deleteBook = async ({name}) => {
     if (typeof name !== 'string') {
         throw new Error('Invalid parameters');
     }
-    console.log(name)
     const books = await readCSVFile('regularUser.csv');
-    console.log(books)
     const updatedBooks = books.filter(book => book.split(',')[0].toLowerCase() !== name.toLowerCase());
     await fs.writeFile(dataPath + 'regularUser.csv', updatedBooks.join('\n'));
 }
