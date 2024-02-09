@@ -1,8 +1,11 @@
+const path = require('path');
+const dataPath = path.join(__dirname, '../data/');
 const fs = require('fs').promises;
 
 async function readCSVFile(filename) {
     try {
-        const data = await fs.readFile(filename, 'utf8');
+        console.log(dataPath)
+        const data = await fs.readFile(dataPath + filename, 'utf8');
         const lines = data.split('\n').map(line => line.trim());
         return lines;
     } catch (err) {
