@@ -1,5 +1,6 @@
 const { getBooks, addBook, deleteBook } = require("../services/bookServices");
 const users = require('../data/users.json');
+const { createToken } = require("../middleware");
 
 
 const authHandler = {
@@ -11,7 +12,7 @@ const authHandler = {
             return res.status(401).json({ error: 'Invalid username or password' });
         }
 
-        const token = creat(user)
+        const token = createToken(user)
         res.status(200).json({message: 'Login successful', token });
     }
 }
