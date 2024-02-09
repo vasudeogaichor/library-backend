@@ -37,7 +37,7 @@ const booksRouteHandler = {
             }
             await addBook(req.body);
             res.status(200).json({ message: 'Book added successfully' })
-        } catch {
+        } catch (error) {
             console.log(error)
             res.status(400).json({ error: `${error}` })
         }
