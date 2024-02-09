@@ -2,7 +2,11 @@
 
 This project is a library management system that allows users to perform various operations such as authentication, adding books, deleting books, and fetching book lists.
 
-# Running the Project
+## Prerequisites
+
+- Node.js v16 or higher
+
+## Running the Project
 1. Clone the repository
     ```bash
     git clone https://github.com/vasudeogaichor/library-backend
@@ -21,7 +25,7 @@ This project is a library management system that allows users to perform various
     ```bash
     npm start
     ```
-5. Access the API endpoints using a tool like Postman or curl
+5. Access the API endpoints using a tool like Postman or curl. You can find the given Postman collection.
 
 
 ## Endpoints
@@ -33,10 +37,10 @@ This project is a library management system that allows users to perform various
 - **Description**: Authenticate user and generate JWT token
 - **Request Body**:
   ```json
-  {
-    "username": "example_user",
-    "password": "example_password"
-  }
+    {
+        "username": "john_doe",
+        "password": "password123"
+    }
   ```
 ### List Books
 
